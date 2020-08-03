@@ -9,24 +9,29 @@
 </template>
 
 <style>
+html {
+  background-color: #2c3e50;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
 }
 
 #nav {
   padding: 30px;
 }
 
-#nav a {
+a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
-#nav a.router-link-exact-active {
+a.router-link-exact-active,
+a:hover {
   color: #42b983;
 }
 </style>
