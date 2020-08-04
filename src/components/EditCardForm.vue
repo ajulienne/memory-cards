@@ -18,6 +18,7 @@
     </div>
     <div class="submit">
       <input type="submit" value="Edit" />
+      <button type="button" @click="cancel">Cancel</button>
     </div>
   </form>
 </template>
@@ -48,6 +49,9 @@ export default {
           this.$emit("formSubmitted");
         });
     },
+    cancel() {
+      this.$emit("cancelEdit");
+    },
   },
 };
 </script>
@@ -62,7 +66,7 @@ export default {
     textarea {
       border: none;
       border-radius: 3px;
-      background-color: #eee;
+      background-color: #fafafa;
       color: #2c3e50;
       outline: none;
       box-sizing: border-box;
@@ -70,21 +74,32 @@ export default {
       width: 100%;
       font-size: 1em;
       resize: none;
-      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-family: "Montserrat", Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #eee;
+      }
     }
   }
   .submit {
-    input {
-      border: none;
-      background-color: #42b983;
-      color: white;
+    input,
+    button {
+      border: 1px solid #42b983;
+      background-color: white;
+      color: #42b983;
       padding: 10px;
       font-size: 1em;
       border-radius: 3px;
       width: 100px;
       cursor: pointer;
+      margin-right: 10px;
+    }
+    input {
+      background-color: #42b983;
+      color: white;
     }
   }
 }

@@ -1,7 +1,13 @@
 import db from ".";
 
-export const getCards = () => {
-  return db.cards.toArray();
+export const getCards = async () => {
+  const cards = shuffle(await db.cards.toArray());
+
+  const ids = cards.map((c) => c.id);
+  return {
+    cards,
+    ids,
+  };
 };
 
 export const createCard = (card) => {
@@ -14,4 +20,16 @@ export const deleteCard = (id) => {
 
 export const updateCard = (id, props) => {
   return db.cards.update(id, props);
+};
+
+const shuffle = (a) => {
+  const arr = a.slice();
+  let j, x, i;
+  for (i = arr.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = arr[i];
+    arr[i] = arr[j];
+    arr[j] = x;
+  }
+  return arr;
 };

@@ -110,7 +110,7 @@ form {
     width: 100%;
     font-size: 1em;
     resize: none;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

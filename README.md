@@ -1,24 +1,21 @@
-# memory-cards
+# Memory Cards
 
-## Project setup
-```
-npm install
-```
+Memory cards app built with [Vue.js](https://vuejs.org).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Check it out [here](https://ajulienne.github.io/memory-cards).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Features
 
-### Lints and fixes files
-```
-npm run lint
-```
+- User can browse cards
+  - Each card is composed of 2 parts : the question and the answer. Each question/answer can be developped with some additionnal informations. Markdown is supported for those informations
+- User can create / delete / edit cards
+- Cards order is shuffled when accessing the app
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Roadmap
+
+- [x] Basic Vue app
+- [x] Vuex
+- [x] Vue Router
+- [x] IndexedDB
+- [ ] Add categories
+- [ ] Load data from a file or store them in the cloud (will require some sort of authentication, or "board" to separate multiple users' cards)

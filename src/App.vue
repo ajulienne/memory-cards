@@ -1,14 +1,48 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Cards</router-link> |
-      <router-link to="/add">Add a card</router-link>
-    </div>
+    <Toast />
+    <Navbar />
     <router-view />
   </div>
 </template>
 
+<script>
+import Toast from "@/components/Toast";
+import Navbar from "@/components/Navbar";
+
+export default {
+  name: "App",
+  components: {
+    Toast,
+    Navbar,
+  },
+  created() {
+    this.$store.dispatch("get");
+  },
+  computed: {
+    ids() {
+      return this.$store.state.ids;
+    },
+  },
+  watch: {
+    ids: function() {
+      this.$router.push({
+        name: "CardList",
+        params: { id: this.$store.state.ids[0] },
+      });
+    },
+  },
+};
+</script>
+
 <style>
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   background-color: #2c3e50;
 }
@@ -19,6 +53,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
+  height: 100%;
 }
 
 #nav {

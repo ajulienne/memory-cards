@@ -5,22 +5,27 @@
     @click="toggleView"
   >
     <template v-if="isEditing">
-      <EditCardForm :card="card" @formSubmitted="isEditing = false" />
+      <EditCardForm
+        :card="card"
+        @formSubmitted="isEditing = false"
+        @cancelEdit="isEditing = false"
+      />
     </template>
     <template v-else>
+      <div class="head">
+        <div class="badge">{{ showAnswer ? "Answer" : "Question" }}</div>
+        <div class="buttons">
+          <button @click="toggleEdit"><Icon name="pen" /></button>
+          <button @click="remove"><Icon name="times" /></button>
+        </div>
+      </div>
       <div v-if="!showAnswer" class="question">
-        <div class="badge">Question</div>
         <h1>{{ card.questionTitle }}</h1>
-        <p>{{ card.question }}</p>
+        <p v-html="formattedQuestion"></p>
       </div>
       <div v-else class="answer">
-        <div class="badge">Answer</div>
         <h1>{{ card.answerTitle }}</h1>
-        <p>{{ card.answer }}</p>
-      </div>
-      <div class="buttons">
-        <button @click="toggleEdit"><Icon name="pen" /></button>
-        <button @click="remove"><Icon name="times" /></button>
+        <p v-html="formattedAnswer"></p>
       </div>
     </template>
   </div>
@@ -30,6 +35,7 @@
 import "vue-awesome/icons/times";
 import "vue-awesome/icons/sync";
 import "vue-awesome/icons/pen";
+import Marked from "marked";
 import Icon from "vue-awesome/components/Icon";
 import EditCardForm from "./EditCardForm";
 
@@ -59,6 +65,14 @@ export default {
       this.showAnswer = !this.showAnswer;
     },
   },
+  computed: {
+    formattedAnswer() {
+      return this.card.answer ? Marked(this.card.answer) : "";
+    },
+    formattedQuestion() {
+      return this.card.question ? Marked(this.card.question) : "";
+    },
+  },
   watch: {
     card: function() {
       this.isEditing = false;
@@ -77,32 +91,37 @@ export default {
   margin: auto;
   color: #2c3e50;
   cursor: pointer;
+  min-height: 200px;
 
   .answer,
   .question {
     p {
       text-align: justify;
     }
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
     .badge {
       text-align: left;
       color: #aaa;
     }
-  }
 
-  .buttons {
-    text-align: right;
-    button {
-      display: inline-block;
-      vertical-align: middle;
-      background-color: white;
-      border: none;
-      cursor: pointer;
-      color: #ccc;
-      &:hover {
-        color: #2c3e50;
-      }
-      &:last-child:hover {
-        color: #f66;
+    .buttons {
+      text-align: right;
+      button {
+        display: inline-block;
+        vertical-align: middle;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        &:hover {
+          color: #2c3e50;
+        }
+        &:last-child:hover {
+          color: #f66;
+        }
       }
     }
   }
