@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="card"
-    :class="{ answer: showAnswer, question: !showAnswer }"
-    @click="toggleView"
-  >
+  <div class="card" :class="{ answer: showAnswer, question: !showAnswer }" @click="toggleView">
     <template v-if="isEditing">
       <EditCardForm
         :card="card"
@@ -15,8 +11,12 @@
       <div class="head">
         <div class="badge">{{ showAnswer ? "Answer" : "Question" }}</div>
         <div class="buttons">
-          <button @click="toggleEdit"><Icon name="pen" /></button>
-          <button @click="remove"><Icon name="times" /></button>
+          <button @click="toggleEdit">
+            <Icon name="pen" />
+          </button>
+          <button @click="remove">
+            <Icon name="times" />
+          </button>
         </div>
       </div>
       <div v-if="!showAnswer" class="question">
@@ -33,7 +33,6 @@
 
 <script>
 import "vue-awesome/icons/times";
-import "vue-awesome/icons/sync";
 import "vue-awesome/icons/pen";
 import Marked from "marked";
 import Icon from "vue-awesome/components/Icon";
@@ -55,7 +54,10 @@ export default {
   methods: {
     remove() {
       if (window.confirm("Do you want to remove this card?")) {
-        this.$store.dispatch("remove", this.card.id);
+        this.$store.dispatch("deleteCard", this.card.id);
+        this.$store.dispatch("getRandomCard", {
+          categoryId: this.card.categoryId,
+        });
       }
     },
     toggleEdit() {
@@ -74,7 +76,7 @@ export default {
     },
   },
   watch: {
-    card: function() {
+    card: function () {
       this.isEditing = false;
       this.showAnswer = false;
     },
@@ -84,6 +86,7 @@ export default {
 
 <style lang="scss">
 .card {
+  text-align: center;
   background-color: white;
   border-radius: 10px;
   padding: 20px;

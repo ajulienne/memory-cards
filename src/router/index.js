@@ -1,31 +1,36 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import CardList from "../views/CardList.vue";
-import CardSelector from "../views/CardSelector.vue";
+import Home from "../views/Home.vue";
+import CategoryPage from "../views/CategoryPage.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/add",
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/category",
+    name: "AddCategory",
+    component: () =>
+      import(/* webpackChunkName: "add-category" */ "../views/AddCategory.vue"),
+  },
+  {
+    path: "/category/:id",
+    name: "Category",
+    component: CategoryPage,
+  },
+  {
+    path: "/category/:id/add",
     name: "AddCard",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "add-card" */ "../views/AddCard.vue"),
   },
   {
-    path: "/cards",
-    name: "CardList",
-    component: CardList,
-    children: [
-      {
-        path: ":id",
-        name: "CardSelector",
-        component: CardSelector,
-      },
-    ],
+    path: "*",
+    redirect: "/",
   },
 ];
 

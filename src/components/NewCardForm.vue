@@ -2,12 +2,7 @@
   <div class="new-card-form">
     <form @submit.prevent="submitForm">
       <div class="controls">
-        <input
-          id="questionTitle"
-          placeholder="Question"
-          type="text"
-          v-model="questionTitle"
-        />
+        <input id="questionTitle" placeholder="Question" type="text" v-model="questionTitle" />
       </div>
       <div class="controls">
         <textarea
@@ -19,12 +14,7 @@
         />
       </div>
       <div class="controls">
-        <input
-          id="answerTitle"
-          placeholder="Answer"
-          type="text"
-          v-model="answerTitle"
-        />
+        <input id="answerTitle" placeholder="Answer" type="text" v-model="answerTitle" />
       </div>
       <div class="controls">
         <textarea
@@ -60,8 +50,9 @@ export default {
         question: this.question,
         answerTitle: this.answerTitle,
         answer: this.answer,
+        categoryId: +this.$route.params.id,
       };
-      this.$store.dispatch("add", card).then(() => {
+      this.$store.dispatch("createCard", card).then(() => {
         this.resetForm();
       });
     },

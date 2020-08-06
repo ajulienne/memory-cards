@@ -1,16 +1,24 @@
 <template>
   <nav>
     <div class="title">
-      <router-link tag="h1" to="/cards">Memory cards</router-link>
+      <router-link tag="h1" to="/">Memory cards</router-link>
     </div>
     <div class="link">
-      <router-link to="/add">Add a card</router-link>
+      <router-link
+        :to="{name: 'AddCard', params: {id: currentCategory.id }}"
+        v-if="currentCategory"
+      >Add a card</router-link>
     </div>
   </nav>
 </template>
 <script>
 export default {
   name: "Navbar",
+  computed: {
+    currentCategory() {
+      return this.$store.state.category.current;
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -26,6 +34,9 @@ nav {
       text-transform: uppercase;
       letter-spacing: 10px;
       cursor: pointer;
+      &:hover {
+        color: var(--green);
+      }
     }
   }
   .link {
@@ -35,6 +46,9 @@ nav {
       text-decoration: none;
       color: white;
       background-color: #42b983;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
       &:hover {
         background-color: darken(#42b983, 5);
       }

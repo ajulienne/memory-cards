@@ -2,7 +2,9 @@
   <div id="app">
     <Toast />
     <Navbar />
-    <router-view />
+    <div id="content">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -17,25 +19,17 @@ export default {
     Navbar,
   },
   created() {
-    this.$store.dispatch("get");
-  },
-  computed: {
-    ids() {
-      return this.$store.state.ids;
-    },
-  },
-  watch: {
-    ids: function() {
-      this.$router.push({
-        name: "CardList",
-        params: { id: this.$store.state.ids[0] },
-      });
-    },
+    this.$store.dispatch("getCategories");
   },
 };
 </script>
 
 <style>
+:root {
+  --dark: #2c3e50;
+  --green: #42b983;
+}
+
 html,
 body {
   height: 100%;
@@ -44,20 +38,25 @@ body {
 }
 
 html {
-  background-color: #2c3e50;
+  background-color: var(--dark);
 }
 
 #app {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: white;
   height: 100%;
 }
 
 #nav {
   padding: 30px;
+}
+
+#content {
+  width: 1024px;
+  margin: auto;
+  height: calc(100% - 70px);
 }
 
 a {
@@ -67,6 +66,6 @@ a {
 
 a.router-link-exact-active,
 a:hover {
-  color: #42b983;
+  color: var(--green);
 }
 </style>

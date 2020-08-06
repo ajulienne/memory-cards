@@ -1,5 +1,5 @@
 <template>
-  <div class="toast" v-if="toast" :class="toast.type">
+  <div class="toast" v-if="toast.message" :class="toast.type">
     <strong>{{ toast.message }}</strong>
   </div>
 </template>

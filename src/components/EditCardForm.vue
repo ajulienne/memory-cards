@@ -1,19 +1,23 @@
 <template>
   <form @submit.prevent="submitForm" class="edit-form">
     <div class="controls">
-      <label for="questionTitle">Question Title</label><br />
+      <label for="questionTitle">Question Title</label>
+      <br />
       <input type="text" id="questionTitle" v-model="questionTitle" />
     </div>
     <div class="controls">
-      <label for="question">Question</label><br />
+      <label for="question">Question</label>
+      <br />
       <textarea id="question" cols="60" rows="5" v-model="question" />
     </div>
     <div class="controls">
-      <label for="answerTitle">Answer Title</label><br />
+      <label for="answerTitle">Answer Title</label>
+      <br />
       <input type="text" id="answerTitle" v-model="answerTitle" />
     </div>
     <div class="controls">
-      <label for="answer">Answer</label><br />
+      <label for="answer">Answer</label>
+      <br />
       <textarea id="answer" cols="60" rows="5" v-model="answer" />
     </div>
     <div class="submit">
@@ -38,7 +42,7 @@ export default {
   methods: {
     submitForm() {
       this.$store
-        .dispatch("update", {
+        .dispatch("updateCard", {
           id: this.card.id,
           answerTitle: this.answerTitle,
           questionTitle: this.questionTitle,
