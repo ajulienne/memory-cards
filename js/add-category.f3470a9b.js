@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["add-category"],{ff7a:function(e,t,a){"use strict";a.r(t);var n=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},r=[function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("div",{staticClass:"add-category"},[a("h1",[e._v("Add a category")])])}],c={name:"AddCategory"},s=c,d=a("2877"),l=Object(d["a"])(s,n,r,!1,null,null,null);t["default"]=l.exports}}]);
+//# sourceMappingURL=add-category.f3470a9b.js.map
