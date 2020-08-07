@@ -1,8 +1,20 @@
 <template>
   <div class="category-view" v-if="category">
-    <div class="title">
-      <h1>{{category.name}}</h1>
-      <p>{{category.description}}</p>
+    <div class="head">
+      <div class="title">
+        <h1>{{category.name}}</h1>
+        <p>{{category.description}}</p>
+      </div>
+      <div class="actions">
+        <Icon
+          title="Toggle randomness"
+          alt="Toggle randomness icon"
+          @click="toggleRandom"
+          :class="{activated: randomize }"
+          scale="2"
+          name="random"
+        />
+      </div>
     </div>
     <div class="card-list">
       <div class="cards" v-if="card">
@@ -29,12 +41,18 @@ import Card from "@/components/Card";
 import Icon from "vue-awesome";
 import "vue-awesome/icons/chevron-left";
 import "vue-awesome/icons/chevron-right";
+import "vue-awesome/icons/random";
 
 export default {
   name: "CategoryPage",
   components: {
     Card,
     Icon,
+  },
+  data() {
+    return {
+      randomize: false,
+    };
   },
   computed: {
     category() {
@@ -48,17 +66,34 @@ export default {
     },
   },
   methods: {
+    toggleRandom() {
+      this.randomize = !this.randomize;
+    },
     next() {
-      this.$store.dispatch("getRandomCard", {
-        categoryId: this.category.id,
-        currentId: this.card.id,
-      });
+      if (this.randomize) {
+        this.$store.dispatch("getRandomCard", {
+          categoryId: this.category.id,
+          currentId: this.card.id,
+        });
+      } else {
+        this.$store.dispatch("getNextCard", {
+          id: this.card.id,
+          categoryId: this.category.id,
+        });
+      }
     },
     prev() {
-      this.$store.dispatch("getRandomCard", {
-        categoryId: this.category.id,
-        currentId: this.card.id,
-      });
+      if (this.randomize) {
+        this.$store.dispatch("getRandomCard", {
+          categoryId: this.category.id,
+          currentId: this.card.id,
+        });
+      } else {
+        this.$store.dispatch("getPreviousCard", {
+          id: this.card.id,
+          categoryId: this.category.id,
+        });
+      }
     },
   },
   watch: {
@@ -68,7 +103,11 @@ export default {
     },
     category() {
       // When the category change, fetch a card
-      this.$store.dispatch("getRandomCard", { categoryId: this.category.id });
+      if (this.randomize) {
+        this.$store.dispatch("getRandomCard", { categoryId: this.category.id });
+      } else {
+        this.$store.dispatch("getFirstCard", this.category.id);
+      }
     },
     categoryList() {
       // Watcher for when the list of categories change (if it isn't yet loaded for example).
@@ -97,13 +136,30 @@ export default {
     justify-content: center;
   }
 
-  .title {
+  > .head {
+    display: flex;
+    justify-content: space-between;
     width: 540px;
     height: 80px;
     margin: auto;
-    h1,
-    p {
-      margin: 0;
+    .title {
+      h1,
+      p {
+        margin: 0;
+      }
+    }
+    .actions svg {
+      opacity: 0.5;
+      height: 60px;
+      line-height: 60px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+      &.activated {
+        opacity: 1;
+        color: var(--green);
+      }
     }
   }
 

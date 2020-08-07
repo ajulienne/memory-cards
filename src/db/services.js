@@ -28,6 +28,31 @@ export const getCard = (id) => {
   return db.cards.where({ id: id }).first();
 };
 
+export const getFirstCard = (categoryId) => {
+  return db.cards.where({ categoryId }).first();
+};
+
+export const getNextCard = async (cardId, categoryId) => {
+  // To get the next card, we select the card with the following ID (not necesserarly id + 1 in case of a removal)
+  const nextCard = await db.cards
+    .where({ categoryId })
+    .and((item) => item.id > cardId)
+    .first();
+  // When there are no next card, return the first one to loop
+  return nextCard || db.cards.where({ categoryId }).first();
+};
+
+export const getPrevCard = async (cardId, categoryId) => {
+  // To get the previous card, we select the card with the previous ID (not necesserarly id - 1 in case of a removal)
+  const nextCard = await db.cards
+    .where({ categoryId })
+    .and((item) => item.id < cardId)
+    .last();
+
+  // When there are no next card, return the last one to loop
+  return nextCard || db.cards.where({ categoryId }).last();
+};
+
 export const getRandomCard = async (categoryId, currentId = null) => {
   const cards = await db.cards.where({ categoryId }).toArray();
   const index = randomCardId(cards, currentId);

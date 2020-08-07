@@ -3,6 +3,10 @@ const {
   deleteCard,
   updateCard,
   createCard,
+  getNextCard,
+  getCard,
+  getPrevCard,
+  getFirstCard,
 } = require("../../db/services");
 
 const state = {
@@ -46,8 +50,38 @@ const actions = {
       });
   },
   getCard({ commit }, id) {
+    getCard(id)
+      .then((data) => {
+        commit("getCardSuccess", data);
+      })
+      .catch((err) => {
+        commit("getCardFailure", err);
+      });
+  },
+  getFirstCard({ commit }, payload) {
     commit("getCard");
-    this.getCard(id)
+    getFirstCard(payload)
+      .then((data) => {
+        commit("getCardSuccess", data);
+      })
+      .catch((err) => {
+        commit("getCardFailure", err);
+      });
+  },
+  getNextCard({ commit }, payload) {
+    commit("getCard");
+    getNextCard(payload.id, payload.categoryId)
+      .then((data) => {
+        commit("getCardSuccess", data);
+      })
+      .catch((err) => {
+        commit("getCardFailure", err);
+      });
+  },
+  getPreviousCard({ commit }, payload) {
+    console.log("get previous card");
+    commit("getCard");
+    getPrevCard(payload.id, payload.categoryId)
       .then((data) => {
         commit("getCardSuccess", data);
       })
