@@ -2,15 +2,15 @@
   <div class="category-view" v-if="category">
     <div class="head">
       <div class="title">
-        <h1>{{category.name}}</h1>
-        <p>{{category.description}}</p>
+        <h1>{{ category.name }}</h1>
+        <p>{{ category.description }}</p>
       </div>
       <div class="actions">
         <Icon
           title="Toggle randomness"
           alt="Toggle randomness icon"
           @click="toggleRandom"
-          :class="{activated: randomize }"
+          :class="{ activated: randomize }"
           scale="2"
           name="random"
         />
@@ -29,7 +29,9 @@
       <div v-else>
         <p>
           You don't have any card yet. Start by
-          <router-link :to="{name: 'AddCard', params: { id: category.id }}">adding one</router-link>.
+          <router-link :to="{ name: 'AddCard', params: { id: category.id } }"
+            >adding one</router-link
+          >.
         </p>
       </div>
     </div>

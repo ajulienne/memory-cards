@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <Toast />
     <Navbar />
     <div id="content">
       <router-view />
@@ -9,13 +8,11 @@
 </template>
 
 <script>
-import Toast from "@/components/Toast";
 import Navbar from "@/components/Navbar";
 
 export default {
   name: "App",
   components: {
-    Toast,
     Navbar,
   },
   created() {
@@ -24,10 +21,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --dark: #2c3e50;
   --green: #42b983;
+  --font-family: "Montserrat", Helvetica, Arial, sans-serif;
 }
 
 html,
@@ -42,7 +40,7 @@ html {
 }
 
 #app {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
@@ -67,5 +65,11 @@ a {
 a.router-link-exact-active,
 a:hover {
   color: var(--green);
+}
+
+.toast {
+  .toast-text {
+    font-family: var(--font-family);
+  }
 }
 </style>

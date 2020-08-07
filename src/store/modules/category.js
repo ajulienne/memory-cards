@@ -1,8 +1,9 @@
-const {
+import {
   getCategories,
   createCategory,
   deleteCategory,
-} = require("../../db/services");
+} from "../../db/services";
+import Vue from "vue";
 
 const state = {
   current: null,
@@ -51,15 +52,18 @@ const actions = {
   },
   createCategory({ commit }, category) {
     createCategory(category).then((id) => {
+      Vue.$toast.success("Category created!");
       commit("createCategory", { id, ...category });
     });
   },
   deleteCategory({ commit }, id) {
     deleteCategory(id).then(() => {
+      Vue.$toast.success("Category deleted!");
       commit("deleteCategory", id);
     });
   },
   selectCategory({ commit }, id) {
+    Vue.$toast.success("Category updated!");
     commit("selectCategory", id);
   },
 };

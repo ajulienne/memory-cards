@@ -1,4 +1,4 @@
-const {
+import {
   getRandomCard,
   deleteCard,
   updateCard,
@@ -7,7 +7,9 @@ const {
   getCard,
   getPrevCard,
   getFirstCard,
-} = require("../../db/services");
+} from "../../db/services";
+
+import Vue from "vue";
 
 const state = {
   data: null,
@@ -91,16 +93,19 @@ const actions = {
   },
   createCard({ commit }, card) {
     createCard(card).then((data) => {
+      Vue.$toast.success("Card created!");
       commit("createCard", { id: data, ...card });
     });
   },
   deleteCard({ commit }, id) {
     deleteCard(id).then(() => {
+      Vue.$toast.success("Card deleted!");
       commit("deleteCard");
     });
   },
   updateCard({ commit }, card) {
     updateCard(card.id, card).then((data) => {
+      Vue.$toast.success("Card updated!");
       commit("updateCard", data);
     });
   },
